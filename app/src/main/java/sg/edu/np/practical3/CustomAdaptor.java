@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import java.util.Random;
 
 public class CustomAdaptor extends RecyclerView.Adapter<CustomViewHolder> {
     ArrayList<User> list_users;
+    String test;
 
     public CustomAdaptor(ArrayList<User> input) {
         this.list_users = input;
@@ -30,10 +32,18 @@ public class CustomAdaptor extends RecyclerView.Adapter<CustomViewHolder> {
     }
 
     public void onBindViewHolder (CustomViewHolder holder, int position) {
+
         User list_items = list_users.get(position);
         holder.txt1.setText(list_items.name);
         holder.txt2.setText(list_items.Description);
         holder.image.setImageResource(R.mipmap.ic_launcher_round);
+        String idStr = String.valueOf(list_items.id);
+        if (idStr.endsWith("7")){
+            holder.image2.setImageResource(R.mipmap.ic_launcher_round);
+        }
+        else {
+            holder.image2.setImageDrawable(null);
+        }
 
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,32 +62,19 @@ public class CustomAdaptor extends RecyclerView.Adapter<CustomViewHolder> {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
-                        String nameholder = list_items.name;
+                        Bundle bundle = new Bundle();
                         Intent intent = new Intent(v.getContext(), MainActivity.class);
-                        intent.putExtra("name",list_items.name);
-                        intent.putExtra("Desc",list_items.Description);
-                        intent.putExtra("Follow", list_items.followed);
+                        bundle.putInt("a",position);
                         v.getContext().startActivity(intent);
-
-                        //v.getContext().startActivity(new Intent(v.getContext(), MainActivity.class));
-                        //Bundle extra = v.put
-
-
                     }
                 });
                 AlertDialog alert = builder.create();
                 alert.show();
             }
         });
+        test = String.valueOf(list_items.getId());
     }
     public  int getItemCount() {
         return list_users.size();
     }
-
-    @Override
-    public int getItemViewType(int position) {
-        return super.getItemViewType(0);
-    }
-
-
 }

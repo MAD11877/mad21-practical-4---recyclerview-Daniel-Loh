@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class ListActivity extends AppCompatActivity {
-    ArrayList<User> myList = new ArrayList<>();
+    static ArrayList<User> myList = new ArrayList<>();
 
     public interface OnItemClickListener{
         void onItemClick(ImageView item);
@@ -80,7 +80,7 @@ public class ListActivity extends AppCompatActivity {
             } else {
                 follow = false;
             }
-            User user = new User(1, "Name" + ranuser, "Description" + randesc, ranuser, follow);
+            User user = new User("Name" + ranuser, "Description " + randesc, ranuser, follow);
             myList.add(user);
         }
         RecyclerView recyclerView = findViewById(R.id.recyclerviewer);

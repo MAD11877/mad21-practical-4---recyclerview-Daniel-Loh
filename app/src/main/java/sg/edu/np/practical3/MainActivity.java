@@ -19,7 +19,6 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     private final static String TAG = "Main Activity";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,19 +31,13 @@ public class MainActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.textView); // Identify TextView (Name)
         TextView textView2 = findViewById(R.id.textView2); // Identify TextView (Description)
 
-        Intent receiveData = getIntent();
+        int a = getIntent().getIntExtra("a",0);
 
-        User user = new User(R.mipmap.ic_launcher_round,"Random Octopus","Octopuses have 3 hearts, because two pump blood to the gills and a larger heart circulates blood to the rest of the body. Octopuses have 9 brains because, in addition to the central brain, each of 8 arms has a mini-brain that allows it to act independently.", 0, false);
-
-        //user.id = receiveData.getIntExtra("random", 0);
-        // Receieve Data from listUser
-        user.name = receiveData.getStringExtra("name");
-        user.Description = receiveData.getStringExtra("Desc");
-        user.followed = receiveData.getBooleanExtra("Follow", false);
+        User user = ListActivity.myList.get(a);
 
         // Initialize name and description texts from the User object
-        textView.setText(user.name);
-        textView2.setText(user.Description);
+        textView.setText(user.getName());
+        textView2.setText(user.getDescription());
 
         //  initialize Button Text based on Followed Bool
         if (user.followed == true){
@@ -68,14 +61,9 @@ public class MainActivity extends AppCompatActivity {
                     user.setFollowed(true);
                     Toast.makeText(getApplicationContext(), "Followed", Toast.LENGTH_SHORT).show();
                 }
-                Intent intent = new Intent(MainActivity.this, ListActivity.class);
-                intent.putExtra("follow", user.followed);
-                startActivity(intent);
             }
         });
     }
-
-
 
     @Override
     protected void onStart(){

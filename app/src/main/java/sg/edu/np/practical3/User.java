@@ -7,24 +7,11 @@ public class User {
     public int id;
     public boolean followed;
 
-    public User(int image,String name, String description, int id, boolean followed) {
-        this.imageID = image;
+    public User(String name, String description, int id, boolean followed) {
         this.name = name;
         this.Description = description;
         this.id = id;
         this.followed = followed;
-    }
-
-    public User(int imageID) {
-        this.imageID = imageID;
-    }
-
-    public int getImageID() {
-        return imageID;
-    }
-
-    public void setImageID(int imageID) {
-        this.imageID = imageID;
     }
 
     public String getName() {
